@@ -7,11 +7,13 @@
 	};
 })();
 
-navigator.getUserMedia = navigator.getUserMedia;
+// navigator.getUserMedia = navigator.getUserMedia ||
+// 						 navigator.mozGetUserMedia ||
+// 						 navigator.webkitGetUserMedia;
 
 var constraints = {
 	audio: false,
-	video: 	{
+	video: {
 		facingMode: "environment",
 		frameRate: {ideal: 16, max: 30}
 	}
@@ -20,11 +22,14 @@ var constraints = {
 var video = document.querySelector('video');
 
 function successCallback(stream) {
-	video.src = stream;
+	video.srcObject = stream;
 };
 
 function errorCallback(error) {
 	console.error('navigator.getUserMedia error: ' + error)
 };
 
-navigator.mediaDevices.getUserMedia(constraints).then(successCallback).catch(errorCallback);
+navigator.mediaDevices
+	.getUserMedia(constraints)
+	.then(successCallback)
+	.catch(errorCallback);

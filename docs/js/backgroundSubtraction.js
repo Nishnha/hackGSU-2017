@@ -5,24 +5,43 @@ var threshold = 20;	// 0 to 100
 var targetColor = [255, 0, 0, 255];
 
 function setup() {
+	let interval;
 	let constraints = {
 		audio: false,
 		video: {
 			facingMode: "environment",
+			// facingMode: {exact: "environment"} ,
 			frameRate: {ideal: 32, max: 32},
 		}
 	};
 
 	capture = createCapture(constraints, function(stream) {
 		console.log(stream);
+		interval = startClock(targetColor);
 	});
-	capture.size(640, 480);
+	// capture = document.getElementById("remoteVideo").srcObject;
+	// 			navigator.mediaDevices
+	// 			.getUserMedia(constraints)
+	// 			.then(function(stream) {
+	// 				document.getElementById("remoteVideo").srcObject = stream;
+	// 			})
+	// 			.catch(function(e) {
+	// 				console.error("an error occured with getUserMedia: ", e);
+	// 			});
+	// capture.size(640, 480);
 	capture.hide();
 	createCanvas(640, 480);
+
 	document.getElementById("defaultCanvas0").addEventListener("click", function() {
 		targetColor = capture.get(mouseX, mouseY);
 		console.log("Updated targetColor to: " + targetColor + " at mouseX:" + (capture.width + mouseX) + " and mouseY:" + mouseY);
+		clearInterval(interval);
+		interval = startClock(targetColor);
 	});
+};
+
+function startClock(targetColor) {
+	return setInterval(function() { getID(targetColor) }, 5000);
 };
 
 function resetBackground() {

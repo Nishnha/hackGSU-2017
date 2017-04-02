@@ -9,3 +9,7 @@ canvas {
 	height: 360px;
 	background-color: #333;
 }
+
+#localVideo {
+	display: none;
+}

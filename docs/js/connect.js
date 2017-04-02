@@ -1,29 +1,29 @@
-/** browser dependent definition are aligned to one and the same standard name **/
+	/** browser dependent definition are aligned to one and the same standard name **/
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
 window.RTCIceCandidate = window.RTCIceCandidate || window.mozRTCIceCandidate || window.webkitRTCIceCandidate;
 window.RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription || window.webkitRTCSessionDescription;
-window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition 
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition
   || window.msSpeechRecognition || window.oSpeechRecognition;
 
 var config = {
-  wssHost: 'wss://wotpal.club'
+  wssHost: 'wss://localhost:8000/'
   // wssHost: 'wss://example.com/myWebSocket'
 };
-var localVideoElem = null, 
-  remoteVideoElem = null, 
+var localVideoElem = null,
+  remoteVideoElem = null,
   localVideoStream = null,
-  videoCallButton = null, 
+  videoCallButton = null,
   endCallButton = null;
 var peerConn = null,
   wsc = new WebSocket(config.wssHost),
-  peerConnCfg = {'iceServers': 
-    [{'url': 'stun:stun.services.mozilla.com'}, 
+  peerConnCfg = {'iceServers':
+    [{'url': 'stun:stun.services.mozilla.com'},
      {'url': 'stun:stun.l.google.com:19302'}]
   };
-    
+
 function pageReady() {
-  // check browser WebRTC availability 
+  // check browser WebRTC availability
   if(navigator.getUserMedia) {
     videoCallButton = document.getElementById("videoCallButton");
     endCallButton = document.getElementById("endCallButton");
@@ -51,7 +51,7 @@ function prepareCall() {
 function initiateCall() {
   prepareCall();
   // get the local stream, show it in the local video element and send it
-  navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+  navigator.getUserMedia({ "audio": false, "video": true }, function (stream) {
     localVideoStream = stream;
     localVideo.src = URL.createObjectURL(localVideoStream);
     peerConn.addStream(localVideoStream);
@@ -62,7 +62,7 @@ function initiateCall() {
 function answerCall() {
   prepareCall();
   // get the local stream, show it in the local video element and send it
-  navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+  navigator.getUserMedia({ "audio": false, "video": true }, function (stream) {
     localVideoStream = stream;
     localVideo.src = URL.createObjectURL(localVideoStream);
     peerConn.addStream(localVideoStream);
@@ -91,13 +91,13 @@ function createAndSendOffer() {
   peerConn.createOffer(
     function (offer) {
       var off = new RTCSessionDescription(offer);
-      peerConn.setLocalDescription(new RTCSessionDescription(off), 
+      peerConn.setLocalDescription(new RTCSessionDescription(off),
         function() {
           wsc.send(JSON.stringify({"sdp": off }));
-        }, 
+        },
         function(error) { console.log(error);}
       );
-    }, 
+    },
     function (error) { console.log(error);}
   );
 };
@@ -108,7 +108,7 @@ function createAndSendAnswer() {
       var ans = new RTCSessionDescription(answer);
       peerConn.setLocalDescription(ans, function() {
           wsc.send(JSON.stringify({"sdp": ans }));
-        }, 
+        },
         function (error) { console.log(error);}
       );
     },
@@ -123,7 +123,7 @@ function onIceCandidateHandler(evt) {
 
 function onAddStreamHandler(evt) {
   videoCallButton.setAttribute("disabled", true);
-  endCallButton.removeAttribute("disabled"); 
+  endCallButton.removeAttribute("disabled");
   // set remote video stream as source for remote video HTML5 element
   remoteVideo.src = URL.createObjectURL(evt.stream);
 };

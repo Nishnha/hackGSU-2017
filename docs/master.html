@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>Master View</title>
+	<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+	<!-- <video id="remoteVideo" autoplay></video>
+    <video id="localVideo" autoplay muted></video>
+    <input id="videoCallButton" type="button" disabled value="Video Call"/>
+    <input id="endCallButton" type="button" disabled value="End Call"/> -->
+
+	<button onClick=resetBackground()>Reset Background</button>
+	<select required>
+		<option value="Room1" name="camera">Camera 1</option>
+		<option value="Room2" name="camera">Camera 2</option>
+		<option value="Room3" name="camera">Camera 3</option>
+	</select>
+
+
+	<script src="js/p5.min.js"></script>
+	<script src="js/p5.dom.js"></script>
+	<script src="js/backgroundSubtraction.js"></script>
+	<script src="js/trackID.js"></script>
+	<script src="js/trackObject.js"></script>
+	<script src="js/sendData.js"></script>
+	<!-- <script src="js/connect.js"></script>
+ 	<script>window.addEventListener("load", pageReady());</script> -->
+</body>
+</html>

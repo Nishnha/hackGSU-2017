@@ -1,4 +1,12 @@
+body {
+	display: inline-block;
+	margin: 0 auto;
+	margin-left: 30%;
+}
+
 video {
+	text-align: center;
+	margin: 0 auto;
 	object-fit: cover;
 	width: 400px;
 	background-color: #222;

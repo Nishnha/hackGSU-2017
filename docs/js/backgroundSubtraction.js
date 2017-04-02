@@ -41,7 +41,7 @@ function setup() {
 };
 
 function startClock(targetColor) {
-	return setInterval(function() { getID(targetColor) }, 5000);
+	return setInterval(function() { getID(targetColor) }, 10000);
 };
 
 function resetBackground() {

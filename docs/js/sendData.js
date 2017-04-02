@@ -19,7 +19,7 @@ function sendPostRequest(payload) {
 	$.ajax({
 	    url: e_url,
 	    method: 'PUT',
-	    contentType: 'text/plain',
+	    contentType: 'application/xml',
 	    success: function() {
 			console.log("Success");
 	   	},

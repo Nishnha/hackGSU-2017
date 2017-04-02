@@ -17,12 +17,12 @@ function setup() {
 		console.log(stream);
 	});
 	capture.size(640, 480);
-	capture.mousePressed(function() {
-		targetColor = capture.get(capture.width + mouseX, mouseY);
+	capture.hide();
+	createCanvas(640, 480);
+	document.getElementById("defaultCanvas0").addEventListener("click", function() {
+		targetColor = capture.get(mouseX, mouseY);
 		console.log("Updated targetColor to: " + targetColor + " at mouseX:" + (capture.width + mouseX) + " and mouseY:" + mouseY);
 	});
-	// capture.hide();
-	createCanvas(640, 480);
 };
 
 function resetBackground() {
@@ -73,13 +73,13 @@ function draw() {
 			let output = 0;
 
 		  	if (anydiff) {
-				output = 255;
+				output = 150;
 				total++;
 			}
 
-		  	pixels[i++] = output;	// Red
-		  	pixels[i++] = output;	// Green
-		  	pixels[i++] = output;	// Blue
+		  	pixels[i++] -= output;	// Red
+		  	pixels[i++] -= output;	// Green
+		  	pixels[i++] -= output;	// Blue
 		  	i++; 					// Skip alpha
 		}
 	}

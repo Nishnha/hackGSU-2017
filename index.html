@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<title>PROJECT NAME HERE</title>
 	<link rel="stylesheet" href="css/main.css" />
-	<script	  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-			  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-			  crossorigin="anonymous">
-	</script>
 </head>
 <body>
-	<video autoplay></video>
-	<script src="js/openCamera.js"></script>
+	<form action="/send_selection.php" method="get">
+		<select required>
+			<option value="c1" name="camera">Camera 1</option>
+			<option value="c2" name="camera">Camera 2</option>
+			<option value="c3" name="camera">Camera 3</option>
+		</select>
+	</form>
+	<button onClick=resetBackground()>Reset Background</button>
+	<!-- <button onclick="captureColor()">Track an object</button> -->
+
+	<script src="js/p5.min.js"></script>
+	<script src="js/p5.dom.js"></script>
+	<script src="js/backgroundSubtraction.js"></script>
+	<script src="js/trackID.js"></script>
+	<script src="js/sendData.js"></script>
 </body>
 </html>
